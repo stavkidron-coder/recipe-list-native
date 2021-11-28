@@ -1,5 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
 import { View, Text, StyleSheet, SectionList } from 'react-native';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 const Home = () => {
   const INGREDIENTS = [
@@ -27,9 +29,12 @@ const Home = () => {
     },
   ];
 
+  const [checkboxState, setCheckboxState] = useState(false);
+
   const Item = ({ title }) => (
-    <View style={styles.item}>
-      <Text>{title}</Text>
+    <View style={styles.item} onPress={() => setCheckboxState(!checkboxState)}>
+      <BouncyCheckbox fillColor="green" />
+      <Text style={{ fontSize: 18 }}>{title}</Text>
     </View>
   );
 
@@ -61,6 +66,8 @@ const styles = StyleSheet.create({
   },
   item: {
     paddingHorizontal: 20,
+    flexDirection: 'row',
+    paddingVertical: 5,
   },
 });
 
