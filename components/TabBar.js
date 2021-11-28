@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useFonts } from 'expo-font';
 
 function TabBar({ state, descriptors, navigation }) {
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View style={[{ flexDirection: 'row' }, styles.fullBar]}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
@@ -27,7 +28,6 @@ function TabBar({ state, descriptors, navigation }) {
             navigation.navigate({ name: route.name, merge: true });
           }
         };
-
         const onLongPress = () => {
           navigation.emit({
             type: 'tabLongPress',
@@ -43,9 +43,21 @@ function TabBar({ state, descriptors, navigation }) {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={styles.bar}
+            activeOpacity={1}
+            style={[
+              styles.bar,
+              { backgroundColor: isFocused ? '#4B8320' : 'white' },
+            ]}
           >
-            <Text style={{ color: isFocused ? '#673ab7' : '#222' }}>
+            <Text
+              style={[
+                styles.text,
+                {
+                  fontWeight: isFocused ? 'bold' : 'normal',
+                  color: isFocused ? 'white' : 'black',
+                },
+              ]}
+            >
               {label}
             </Text>
           </TouchableOpacity>
@@ -61,6 +73,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#4B8320',
+    // borderWidth: 1,
+    // borderBottomWidth: 0,
+    // borderTopWidth: 0,
+    // borderColor: 'white',
+  },
+  text: {
+    fontSize: 18,
+  },
+  fullBar: {
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 15 },
+    shadowOpacity: 1,
+    shadowRadius: 20,
   },
 });
 

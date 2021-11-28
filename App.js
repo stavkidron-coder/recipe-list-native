@@ -27,7 +27,9 @@ const App = () => {
           options={({ route }) => ({ title: route.params.paletteName })}
         />
       </Stack.Navigator> */}
-      <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
+      <Tab.Navigator
+        tabBar={(props) => <TabBar {...props} key={props.state.index} />}
+      >
         <Tab.Screen name="Master List" component={MasterList} />
         <Tab.Screen name="Recipes" component={Recipes} />
       </Tab.Navigator>
